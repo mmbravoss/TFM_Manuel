@@ -1,0 +1,619 @@
+{
+	"info": {
+		"_postman_id": "7e79cd12-26d8-4b81-b2da-1810ec61637f",
+		"name": "TFM Manuel Bravo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19172976"
+	},
+	"item": [
+		{
+			"name": "Creacion entidades (leds)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-SubservicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"urn:ngsi-ld:ledVerde:001\",\r\n    \"type\": \"ledVerde\",\r\n    \"light\": {\r\n        \"type\": \"Integer\",\r\n        \"value\": \"0\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/entities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver entidades",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:ledAmarillo:001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities",
+						"urn:ngsi-ld:ledAmarillo:001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an entity",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:ledVerde:001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities",
+						"urn:ngsi-ld:ledVerde:001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creación subscripcion ledVerde",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "fiware-subservicepath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Notificar a Quantum Leap de los cambios en el led verde\",\r\n  \"subject\": {\r\n    \"entities\": [\r\n      {\r\n        \"idPattern\": \".*\",\r\n        \"type\": \"ledVerde\"\r\n      }\r\n    ],\r\n     \"condition\": {\r\n      \"attrs\": [ \"light\" ]\r\n    }\r\n  },\r\n  \"notification\": {\r\n    \"http\": {\r\n      \"url\": \"http://quantumleap:8668/v2/notify\"\r\n    },\r\n    \"attrs\": [\r\n      \"light\"\r\n    ],\r\n    \"metadata\": [\"dateCreated\", \"dateModified\"]\r\n  }\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creación subscripcion ledAmarillo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "fiware-subservicepath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Notificar a Quantum Leap de los cambios en el led amarillo\",\r\n  \"subject\": {\r\n    \"entities\": [\r\n      {\r\n        \"idPattern\": \".*\",\r\n        \"type\": \"ledAmarillo\"\r\n      }\r\n    ],\r\n     \"condition\": {\r\n      \"attrs\": [ \"light\" ]\r\n    }\r\n  },\r\n  \"notification\": {\r\n    \"http\": {\r\n      \"url\": \"http://quantumleap:8668/v2/notify\"\r\n    },\r\n    \"attrs\": [\r\n      \"light\"\r\n    ],\r\n    \"metadata\": [\"dateCreated\", \"dateModified\"]\r\n  }\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creación subscripcion ledRojo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "fiware-subservicepath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Notificar a Quantum Leap de los cambios en el led rojo\",\r\n  \"subject\": {\r\n    \"entities\": [\r\n      {\r\n        \"idPattern\": \".*\",\r\n        \"type\": \"ledRojo\"\r\n      }\r\n    ],\r\n     \"condition\": {\r\n      \"attrs\": [ \"light\" ]\r\n    }\r\n  },\r\n  \"notification\": {\r\n    \"http\": {\r\n      \"url\": \"http://quantumleap:8668/v2/notify\"\r\n    },\r\n    \"attrs\": [\r\n      \"light\"\r\n    ],\r\n    \"metadata\": [\"dateCreated\", \"dateModified\"]\r\n  }\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an only Subscription",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1026/v2/subscriptions/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Subscription",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1026/v2/subscriptions/62029a9b4efc343fba46ecb2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions",
+						"62029a9b4efc343fba46ecb2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar ledVerde",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"light\": {\r\n         \"type\": \"Number\",\r\n         \"value\": \"0\"\r\n     }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:ledVerde:001/attrs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities",
+						"urn:ngsi-ld:ledVerde:001",
+						"attrs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar ledAmarillo",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"light\": {\r\n         \"type\": \"Number\",\r\n         \"value\": \"0\"\r\n     }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:ledAmarillo:001/attrs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities",
+						"urn:ngsi-ld:ledAmarillo:001",
+						"attrs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar ledRojo",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"light\": {\r\n         \"type\": \"Number\",\r\n         \"value\": \"1\"\r\n     }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:ledRojo:001/attrs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities",
+						"urn:ngsi-ld:ledRojo:001",
+						"attrs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener últimos 3 cambios",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8668/v2/entities/urn:ngsi-ld:ledRojo:001/attrs/Light?lastN=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8668",
+					"path": [
+						"v2",
+						"entities",
+						"urn:ngsi-ld:ledRojo:001",
+						"attrs",
+						"Light"
+					],
+					"query": [
+						{
+							"key": "lastN",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read schemas",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"stmt\":\"SHOW SCHEMAS\"}"
+				},
+				"url": {
+					"raw": "http://localhost:4200/_sql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4200",
+					"path": [
+						"_sql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read tables",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"stmt\":\"SHOW TABLES\"}"
+				},
+				"url": {
+					"raw": "http://localhost:4200/_sql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4200",
+					"path": [
+						"_sql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener últimos 3 cambios en CrateDB",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"stmt\":\"SELECT * FROM mtopeniot.etledverde WHERE entity_id = 'urn:ngsi-ld:ledVerde:001'  ORDER BY time_index DESC LIMIT 3\"}"
+				},
+				"url": {
+					"raw": "http://localhost:4200/_sql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4200",
+					"path": [
+						"_sql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creacion múltiple de los leds",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-Service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "Fiware-ServicePath",
+						"value": "/",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"actionType\":\"APPEND\",\r\n  \"entities\":[\r\n    {\r\n        \"id\": \"urn:ngsi-ld:ledVerde:001\",\r\n        \"type\": \"ledVerde\",\r\n        \"light\": {\r\n            \"type\": \"Integer\",\r\n            \"value\": \"0\"\r\n     }\r\n    },\r\n    {\r\n        \"id\": \"urn:ngsi-ld:ledAmarillo:001\",\r\n        \"type\": \"ledAmarillo\",\r\n        \"light\": {\r\n            \"type\": \"Integer\",\r\n            \"value\": \"0\"\r\n     }\r\n    },   \r\n    {\r\n        \"id\": \"urn:ngsi-ld:ledRojo:001\",\r\n        \"type\": \"ledRojo\",\r\n        \"light\": {\r\n            \"type\": \"Integer\",\r\n            \"value\": \"0\"\r\n     }\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/op/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"op",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
